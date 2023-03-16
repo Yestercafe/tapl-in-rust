@@ -13,5 +13,5 @@ pub enum T {
 pub enum V {
     True,
     False,
-    Num(u64),
+    Nat(u64),
 }

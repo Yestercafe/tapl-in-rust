@@ -4,7 +4,7 @@ pub fn eval(expr: T) -> Result<V, &'static str> {
     match expr {
         T::True => Ok(V::True),
         T::False => Ok(V::False),
-        T::Zero => Ok(V::Num(0)),
+        T::Zero => Ok(V::Nat(0)),
 
         T::If(t1, t2, t3) => match eval(*t1).unwrap() {
             V::True => eval(*t2),
@@ -13,19 +13,19 @@ pub fn eval(expr: T) -> Result<V, &'static str> {
         },
 
         T::Succ(t1) => match eval(*t1).unwrap() {
-            V::Num(n) => Ok(V::Num(n + 1)),
+            V::Nat(n) => Ok(V::Nat(n + 1)),
             _ => Err("Sematic error: Succ (NotANum)"),
         }
 
         T::Pred(t1) => match eval(*t1).unwrap() {
-            V::Num(0) => Ok(V::Num(0)),
-            V::Num(n) => Ok(V::Num(n - 1)),
+            V::Nat(0) => Ok(V::Nat(0)),
+            V::Nat(n) => Ok(V::Nat(n - 1)),
             _ => Err("Semantic error: Pred (NotANum)"),
         }
 
         T::Iszero(t1) => match eval(*t1).unwrap() {
-            V::Num(0) => Ok(V::True),
-            V::Num(_) => Ok(V::False),
+            V::Nat(0) => Ok(V::True),
+            V::Nat(_) => Ok(V::False),
             _ => Err("Semantic error: Num (NotANum)")
         },
     }
